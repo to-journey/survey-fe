@@ -14,3 +14,5 @@ export type User = {
     value: string
   }>
 }
+
+export type CreateUser = Omit<User, 'id' | 'role'>
