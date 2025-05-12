@@ -31,3 +31,8 @@ export type CreateSurveyDto = {
   participants: Array<string>
   problems: Array<CreateProblemDto>
 }
+
+export type ProblemAnswerDto = {
+  id: string
+  answer: string
+}
