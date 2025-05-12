@@ -1,10 +1,12 @@
 import {
   Checkbox,
   HStack,
+  Input,
   Portal,
   RadioGroup,
   Select,
   Text,
+  Textarea,
   VStack,
   createListCollection,
 } from '@chakra-ui/react'
@@ -31,6 +33,8 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
         <Text>問題:</Text>
         <Text>{problem.description}</Text>
       </HStack>
+      {problem.type === ProblemType.SINGLE && <Input w="320px" />}
+      {problem.type === ProblemType.MULTIPLE && <Textarea w="320px" />}
       {problem.type === ProblemType.CHECKBOX && (
         <VStack gap={2}>
           {problem.options.map((option) => (
@@ -64,10 +68,7 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
         </VStack>
       )}
       {problem.type === ProblemType.DROPDOWN && (
-        <Select.Root
-          collection={options}
-          width="320px"
-        >
+        <Select.Root collection={options} width="320px">
           <Select.HiddenSelect />
           <Select.Control>
             <Select.Trigger>
