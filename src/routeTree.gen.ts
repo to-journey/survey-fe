@@ -16,17 +16,12 @@ import { Route as RegisterImport } from './routes/register'
 import { Route as LoginImport } from './routes/login'
 import { Route as CompanyImport } from './routes/company'
 import { Route as IndexImport } from './routes/index'
-import { Route as DemoTanstackQueryImport } from './routes/demo.tanstack-query'
-import { Route as DemoTableImport } from './routes/demo.table'
-import { Route as DemoStoreImport } from './routes/demo.store'
 import { Route as CompanyLoginFormImport } from './routes/company/login-form'
 import { Route as CompanyAiAnalysisImport } from './routes/company/ai-analysis'
 import { Route as UserSurveyIndexImport } from './routes/user/survey/index'
 import { Route as CompanySurveyIndexImport } from './routes/company/survey/index'
 import { Route as CompanyCustomerIndexImport } from './routes/company/customer/index'
 import { Route as UserSurveyIdImport } from './routes/user/survey/$id'
-import { Route as DemoFormSimpleImport } from './routes/demo.form.simple'
-import { Route as DemoFormAddressImport } from './routes/demo.form.address'
 import { Route as CompanySurveyCreateImport } from './routes/company/survey/create'
 import { Route as CompanySurveyIdImport } from './routes/company/survey/$id'
 import { Route as CompanyCustomerCreateImport } from './routes/company/customer/create'
@@ -64,24 +59,6 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const DemoTanstackQueryRoute = DemoTanstackQueryImport.update({
-  id: '/demo/tanstack-query',
-  path: '/demo/tanstack-query',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const DemoTableRoute = DemoTableImport.update({
-  id: '/demo/table',
-  path: '/demo/table',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const DemoStoreRoute = DemoStoreImport.update({
-  id: '/demo/store',
-  path: '/demo/store',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const CompanyLoginFormRoute = CompanyLoginFormImport.update({
   id: '/login-form',
   path: '/login-form',
@@ -116,18 +93,6 @@ const UserSurveyIdRoute = UserSurveyIdImport.update({
   id: '/survey/$id',
   path: '/survey/$id',
   getParentRoute: () => UserRoute,
-} as any)
-
-const DemoFormSimpleRoute = DemoFormSimpleImport.update({
-  id: '/demo/form/simple',
-  path: '/demo/form/simple',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const DemoFormAddressRoute = DemoFormAddressImport.update({
-  id: '/demo/form/address',
-  path: '/demo/form/address',
-  getParentRoute: () => rootRoute,
 } as any)
 
 const CompanySurveyCreateRoute = CompanySurveyCreateImport.update({
@@ -207,27 +172,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompanyLoginFormImport
       parentRoute: typeof CompanyImport
     }
-    '/demo/store': {
-      id: '/demo/store'
-      path: '/demo/store'
-      fullPath: '/demo/store'
-      preLoaderRoute: typeof DemoStoreImport
-      parentRoute: typeof rootRoute
-    }
-    '/demo/table': {
-      id: '/demo/table'
-      path: '/demo/table'
-      fullPath: '/demo/table'
-      preLoaderRoute: typeof DemoTableImport
-      parentRoute: typeof rootRoute
-    }
-    '/demo/tanstack-query': {
-      id: '/demo/tanstack-query'
-      path: '/demo/tanstack-query'
-      fullPath: '/demo/tanstack-query'
-      preLoaderRoute: typeof DemoTanstackQueryImport
-      parentRoute: typeof rootRoute
-    }
     '/company/customer/$id': {
       id: '/company/customer/$id'
       path: '/customer/$id'
@@ -255,20 +199,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/company/survey/create'
       preLoaderRoute: typeof CompanySurveyCreateImport
       parentRoute: typeof CompanyImport
-    }
-    '/demo/form/address': {
-      id: '/demo/form/address'
-      path: '/demo/form/address'
-      fullPath: '/demo/form/address'
-      preLoaderRoute: typeof DemoFormAddressImport
-      parentRoute: typeof rootRoute
-    }
-    '/demo/form/simple': {
-      id: '/demo/form/simple'
-      path: '/demo/form/simple'
-      fullPath: '/demo/form/simple'
-      preLoaderRoute: typeof DemoFormSimpleImport
-      parentRoute: typeof rootRoute
     }
     '/user/survey/$id': {
       id: '/user/survey/$id'
@@ -348,15 +278,10 @@ export interface FileRoutesByFullPath {
   '/user': typeof UserRouteWithChildren
   '/company/ai-analysis': typeof CompanyAiAnalysisRoute
   '/company/login-form': typeof CompanyLoginFormRoute
-  '/demo/store': typeof DemoStoreRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/company/customer/$id': typeof CompanyCustomerIdRoute
   '/company/customer/create': typeof CompanyCustomerCreateRoute
   '/company/survey/$id': typeof CompanySurveyIdRoute
   '/company/survey/create': typeof CompanySurveyCreateRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
   '/user/survey/$id': typeof UserSurveyIdRoute
   '/company/customer': typeof CompanyCustomerIndexRoute
   '/company/survey': typeof CompanySurveyIndexRoute
@@ -371,15 +296,10 @@ export interface FileRoutesByTo {
   '/user': typeof UserRouteWithChildren
   '/company/ai-analysis': typeof CompanyAiAnalysisRoute
   '/company/login-form': typeof CompanyLoginFormRoute
-  '/demo/store': typeof DemoStoreRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/company/customer/$id': typeof CompanyCustomerIdRoute
   '/company/customer/create': typeof CompanyCustomerCreateRoute
   '/company/survey/$id': typeof CompanySurveyIdRoute
   '/company/survey/create': typeof CompanySurveyCreateRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
   '/user/survey/$id': typeof UserSurveyIdRoute
   '/company/customer': typeof CompanyCustomerIndexRoute
   '/company/survey': typeof CompanySurveyIndexRoute
@@ -395,15 +315,10 @@ export interface FileRoutesById {
   '/user': typeof UserRouteWithChildren
   '/company/ai-analysis': typeof CompanyAiAnalysisRoute
   '/company/login-form': typeof CompanyLoginFormRoute
-  '/demo/store': typeof DemoStoreRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/company/customer/$id': typeof CompanyCustomerIdRoute
   '/company/customer/create': typeof CompanyCustomerCreateRoute
   '/company/survey/$id': typeof CompanySurveyIdRoute
   '/company/survey/create': typeof CompanySurveyCreateRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
   '/user/survey/$id': typeof UserSurveyIdRoute
   '/company/customer/': typeof CompanyCustomerIndexRoute
   '/company/survey/': typeof CompanySurveyIndexRoute
@@ -420,15 +335,10 @@ export interface FileRouteTypes {
     | '/user'
     | '/company/ai-analysis'
     | '/company/login-form'
-    | '/demo/store'
-    | '/demo/table'
-    | '/demo/tanstack-query'
     | '/company/customer/$id'
     | '/company/customer/create'
     | '/company/survey/$id'
     | '/company/survey/create'
-    | '/demo/form/address'
-    | '/demo/form/simple'
     | '/user/survey/$id'
     | '/company/customer'
     | '/company/survey'
@@ -442,15 +352,10 @@ export interface FileRouteTypes {
     | '/user'
     | '/company/ai-analysis'
     | '/company/login-form'
-    | '/demo/store'
-    | '/demo/table'
-    | '/demo/tanstack-query'
     | '/company/customer/$id'
     | '/company/customer/create'
     | '/company/survey/$id'
     | '/company/survey/create'
-    | '/demo/form/address'
-    | '/demo/form/simple'
     | '/user/survey/$id'
     | '/company/customer'
     | '/company/survey'
@@ -464,15 +369,10 @@ export interface FileRouteTypes {
     | '/user'
     | '/company/ai-analysis'
     | '/company/login-form'
-    | '/demo/store'
-    | '/demo/table'
-    | '/demo/tanstack-query'
     | '/company/customer/$id'
     | '/company/customer/create'
     | '/company/survey/$id'
     | '/company/survey/create'
-    | '/demo/form/address'
-    | '/demo/form/simple'
     | '/user/survey/$id'
     | '/company/customer/'
     | '/company/survey/'
@@ -486,11 +386,6 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   UserRoute: typeof UserRouteWithChildren
-  DemoStoreRoute: typeof DemoStoreRoute
-  DemoTableRoute: typeof DemoTableRoute
-  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
-  DemoFormAddressRoute: typeof DemoFormAddressRoute
-  DemoFormSimpleRoute: typeof DemoFormSimpleRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -499,11 +394,6 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   UserRoute: UserRouteWithChildren,
-  DemoStoreRoute: DemoStoreRoute,
-  DemoTableRoute: DemoTableRoute,
-  DemoTanstackQueryRoute: DemoTanstackQueryRoute,
-  DemoFormAddressRoute: DemoFormAddressRoute,
-  DemoFormSimpleRoute: DemoFormSimpleRoute,
 }
 
 export const routeTree = rootRoute
@@ -520,12 +410,7 @@ export const routeTree = rootRoute
         "/company",
         "/login",
         "/register",
-        "/user",
-        "/demo/store",
-        "/demo/table",
-        "/demo/tanstack-query",
-        "/demo/form/address",
-        "/demo/form/simple"
+        "/user"
       ]
     },
     "/": {
@@ -565,15 +450,6 @@ export const routeTree = rootRoute
       "filePath": "company/login-form.tsx",
       "parent": "/company"
     },
-    "/demo/store": {
-      "filePath": "demo.store.tsx"
-    },
-    "/demo/table": {
-      "filePath": "demo.table.tsx"
-    },
-    "/demo/tanstack-query": {
-      "filePath": "demo.tanstack-query.tsx"
-    },
     "/company/customer/$id": {
       "filePath": "company/customer/$id.tsx",
       "parent": "/company"
@@ -589,12 +465,6 @@ export const routeTree = rootRoute
     "/company/survey/create": {
       "filePath": "company/survey/create.tsx",
       "parent": "/company"
-    },
-    "/demo/form/address": {
-      "filePath": "demo.form.address.tsx"
-    },
-    "/demo/form/simple": {
-      "filePath": "demo.form.simple.tsx"
     },
     "/user/survey/$id": {
       "filePath": "user/survey/$id.tsx",
