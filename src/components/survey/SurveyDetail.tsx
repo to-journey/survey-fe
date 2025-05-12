@@ -22,7 +22,7 @@ const SurveyDetail: FC<Props> = ({ survey }) => {
         <Text>アンケート説明:</Text>
         <Text>{survey.description}</Text>
       </HStack>
-      {survey.problems.map((problem) => (
+      {survey.problems.sort((a, b) => a.number - b.number).map((problem) => (
         <ProblemDetail key={problem.id} problem={problem} />
       ))}
     </VStack>
