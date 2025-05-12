@@ -10,6 +10,10 @@ export const registerSchema = z.object({
   password: z.string().min(8),
   firstName: z.string().min(1),
   lastName: z.string().min(1),
+  attributions: z.optional(z.array(z.object({
+    key: z.string(),
+    value: z.string(),
+  }))),
 })
 
 export type LoginForm = z.infer<typeof loginSchema>

@@ -9,4 +9,8 @@ export type User = {
   firstName: string
   email: string
   role: Role
+  attributions: Array<{
+    key: string
+    value: string
+  }>
 }

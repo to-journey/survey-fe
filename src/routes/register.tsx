@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Container, Flex, Heading, Input, Text, VStack } from '@chakra-ui/react'
+import { useState } from 'react'
 import type { RegisterForm } from '@/types/auth'
 import type { UserAttribution } from '@/types/user-attribution'
 import { registerSchema } from '@/types/auth'
@@ -15,12 +16,13 @@ export const Route = createFileRoute('/register')({
 function RouteComponent() {
   const { register: registerMutation, isLoading } = useApp()
   const { userAttributions } = useUserAttributions()
+  const [attributions, setAttributions] = useState<Array<{ key: string, value: string }>>([])
   const { register, handleSubmit, formState: { errors } } = useForm<RegisterForm>({
     resolver: zodResolver(registerSchema),
   })
 
   const onSubmit = (data: RegisterForm) => {
-    registerMutation?.(data)
+    registerMutation?.({ ...data, attributions })
   }
 
   return (
@@ -68,12 +70,19 @@ function RouteComponent() {
           </Flex>
           {userAttributions.map((userAttribution: UserAttribution) => {
             return (
-              <Flex direction="column" gap={2}>
+              <Flex key={userAttribution.id} direction="column" gap={2}>
                 <Input
                   w="320px"
                   type="text"
                   placeholder={userAttribution.name}
-                  {...register(userAttribution.name as keyof RegisterForm)}
+                  value={attributions.find((a) => a.key === userAttribution.name)?.value || ''}
+                  onChange={(e) => {
+                    if (!attributions.some((a) => a.key === userAttribution.name)) {
+                      setAttributions([...attributions, { key: userAttribution.name, value: e.target.value }])
+                    } else {
+                      setAttributions(attributions.map((a) => a.key === userAttribution.name ? { ...a, value: e.target.value } : a))
+                    }
+                  }}
                 />
               </Flex>
             )
