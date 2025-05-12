@@ -1,0 +1,18 @@
+{
+  "framework": "react",
+  "typescript": true,
+  "projectName": "survey",
+  "mode": "file-router",
+  "tailwind": true,
+  "packageManager": "npm",
+  "toolchain": "eslint+prettier",
+  "variableValues": {},
+  "git": true,
+  "version": 1,
+  "existingAddOns": [
+    "tanstack-query",
+    "form",
+    "table",
+    "store"
+  ]
+}
