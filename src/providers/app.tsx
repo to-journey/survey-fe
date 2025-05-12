@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import type {
   LoginForm,
   LoginResponse,
@@ -31,6 +32,7 @@ interface Props {
 }
 
 const AppProvider: React.FC<Props> = ({ children }) => {
+  const queryClient = useQueryClient()
   const [token, setToken] = useState<string | null>(storage.getToken())
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -105,6 +107,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
   const logout = () => {
     setUser(null)
     setToken(null)
+    queryClient.clear()
   }
 
   return (
