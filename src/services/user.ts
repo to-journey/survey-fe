@@ -1,4 +1,4 @@
-import type { User } from "@/types"
+import type { CreateUser, User } from "@/types/user"
 import axios from "@/lib/axios"
 
 export const getProfile = async () => {
@@ -16,7 +16,7 @@ export const getUser = async (id: string) => {
   return response.data
 }
 
-export const createUser = async (user: User) => {
+export const createUser = async (user: CreateUser) => {
   const response = await axios.post('/user', user)
   return response.data
 }
@@ -28,5 +28,10 @@ export const updateUser = async (user: User) => {
 
 export const deleteUser = async (id: string) => {
   const response = await axios.delete(`/user/${id}`)
+  return response.data
+}
+
+export const importUsers = async (users: Array<CreateUser>) => {
+  const response = await axios.post('/user/import', users)
   return response.data
 }

@@ -22,6 +22,7 @@ import { FaEye, FaTrash } from 'react-icons/fa'
 import type { User } from '@/types/user'
 import ConfirmDialog from '@/components/ConfirmDialog'
 import useUsers from '@/hooks/useUsers'
+import CustomerImportDialog from '@/components/customer/CustomerImportDialog'
 
 export const Route = createFileRoute('/company/customer/')({
   component: RouteComponent,
@@ -31,7 +32,6 @@ function RouteComponent() {
   const navigate = useNavigate()
   const { users, deleteUserMutate } = useUsers()
   const [globalFilter, setGlobalFilter] = useState('')
-  const [isImporting, setIsImporting] = useState(false)
   const [isExporting, setIsExporting] = useState(false)
 
   const columnHelper = createColumnHelper<User>()
@@ -68,38 +68,31 @@ function RouteComponent() {
     },
   })
 
-  const handleImport = () => {
-    setIsImporting(true)
-    const file = document.getElementById('file') as HTMLInputElement
-    const fileContent = file.files?.[0]
-    if (!fileContent) {
-      setIsImporting(false)
-      return
-    }
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      const csvContent = e.target?.result as string
-      console.log(csvContent)
-    }
-    reader.readAsText(fileContent)
-    setIsImporting(false)
-  }
-
   const handleExport = () => {
     setIsExporting(true)
-    const headers = users.reduce((acc: Array<string>, user: User) => [
-      ...acc,
-      ...user.attributions.map((attribution) => attribution.key).filter((key) => !acc.find((a) => a === key))
-    ], [])
+    const headers = users.reduce(
+      (acc: Array<string>, user: User) => [
+        ...acc,
+        ...user.attributions
+          .map((attribution) => attribution.key)
+          .filter((key) => !acc.find((a) => a === key)),
+      ],
+      [],
+    )
     const csvContent = [
       ['ID', '姓', '名', 'メールアドレス', ...headers].join(','),
-      ...users.map((user: User) => [
-        user.id,
-        user.lastName,
-        user.firstName,
-        user.email,
-        ...headers.map((header: string) => user.attributions.find((a) => a.key === header)?.value || ''),
-      ].join(',')),
+      ...users.map((user: User) =>
+        [
+          user.id,
+          user.lastName,
+          user.firstName,
+          user.email,
+          ...headers.map(
+            (header: string) =>
+              user.attributions.find((a) => a.key === header)?.value || '',
+          ),
+        ].join(','),
+      ),
     ].join('\n')
 
     const BOM = '\uFEFF'
@@ -130,9 +123,7 @@ function RouteComponent() {
       <VStack align="stretch" gap={4}>
         <Flex justify="space-between">
           <ButtonGroup>
-            <Button onClick={handleImport} loading={isImporting}>
-              CSVインポート
-            </Button>
+            <CustomerImportDialog />
             <Button onClick={handleExport} loading={isExporting}>
               CSVエクスポート
             </Button>
