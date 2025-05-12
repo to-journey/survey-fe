@@ -22,9 +22,9 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
   })
 
   return (
-    <VStack key={problem.id} align="start" gap={4}>
+    <VStack align="start" gap={4}>
       <HStack fontSize="lg" fontWeight="bold">
-        <Text>第{problem.id}問</Text>
+        <Text>第{problem.number}問</Text>
         <Text>{problem.name}</Text>
       </HStack>
       <HStack>
@@ -69,10 +69,9 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
           width="320px"
         >
           <Select.HiddenSelect />
-          <Select.Label>Select framework</Select.Label>
           <Select.Control>
             <Select.Trigger>
-              <Select.ValueText placeholder="Select framework" />
+              <Select.ValueText placeholder="選択してください" />
             </Select.Trigger>
             <Select.IndicatorGroup>
               <Select.Indicator />
