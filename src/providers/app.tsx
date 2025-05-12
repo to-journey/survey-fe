@@ -103,6 +103,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
   }
 
   const logout = () => {
+    setUser(null)
     setToken(null)
   }
 
