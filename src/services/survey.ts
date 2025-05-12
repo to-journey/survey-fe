@@ -1,7 +1,7 @@
-import type { Survey } from '@/types/survey'
+import type { CreateSurveyDto, Survey } from '@/types/survey'
 import axios from '@/lib/axios'
 
-export const createSurvey = async (survey: Survey) => {
+export const createSurvey = async (survey: CreateSurveyDto) => {
   const response = await axios.post('/survey', survey)
   return response.data
 }
@@ -16,8 +16,8 @@ export const getSurvey = async (id: string) => {
   return response.data
 }
 
-export const updateSurvey = async (id: string, survey: Survey) => {
-  const response = await axios.put(`/survey/${id}`, survey)
+export const updateSurvey = async (survey: Survey) => {
+  const response = await axios.put(`/survey/${survey.id}`, survey)
   return response.data
 }
 

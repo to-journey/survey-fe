@@ -7,7 +7,7 @@ export enum ProblemType {
 }
 
 export type Problem = {
-  id?: string
+  id: string
   number: number
   name: string
   description: string
@@ -16,9 +16,18 @@ export type Problem = {
 }
 
 export type Survey = {
-  id?: string
+  id: string
   name: string
   description: string
   participants: Array<string>
   problems: Array<Problem>
+}
+
+export type CreateProblemDto = Omit<Problem, 'id'>
+
+export type CreateSurveyDto = {
+  name: string
+  description: string
+  participants: Array<string>
+  problems: Array<CreateProblemDto>
 }

@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import type { Survey } from '@/types/survey'
 import { toaster } from '@/components/ui/toaster'
 import {
   createSurvey,
@@ -18,7 +17,7 @@ const useSurveys = () => {
 
   const { mutateAsync: createSurveyMutate, isPending: isCreating } =
     useMutation({
-      mutationFn: (survey: Survey) => createSurvey(survey),
+      mutationFn: createSurvey,
       onSuccess: () => {
         toaster.success({ title: 'アンケートを作成しました' })
         queryClient.invalidateQueries({ queryKey: ['surveys'] })
@@ -30,7 +29,7 @@ const useSurveys = () => {
 
   const { mutateAsync: updateSurveyMutate, isPending: isUpdating } =
     useMutation({
-      mutationFn: (survey: Survey) => updateSurvey(survey.id!, survey),
+      mutationFn: updateSurvey,
       onSuccess: () => {
         toaster.success({ title: 'アンケートを更新しました' })
         queryClient.invalidateQueries({ queryKey: ['surveys'] })
@@ -42,7 +41,7 @@ const useSurveys = () => {
 
   const { mutateAsync: deleteSurveyMutate, isPending: isDeleting } =
     useMutation({
-      mutationFn: (id: string) => deleteSurvey(id),
+      mutationFn: deleteSurvey,
       onSuccess: () => {
         toaster.success({ title: 'アンケートを削除しました' })
         queryClient.invalidateQueries({ queryKey: ['surveys'] })

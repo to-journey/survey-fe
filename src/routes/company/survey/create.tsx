@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
-import type { Problem } from '@/types/survey'
+import type { CreateProblemDto } from '@/types/survey'
 import { ProblemType } from '@/types/survey'
 import CreateProblem from '@/components/survey/CreateProblem'
 import useSurveys from '@/hooks/useSurveys'
@@ -23,7 +23,7 @@ export const Route = createFileRoute('/company/survey/create')({
 function RouteComponent() {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [problems, setProblems] = useState<Array<Problem>>([
+  const [problems, setProblems] = useState<Array<CreateProblemDto>>([
     {
       number: 1,
       name: '',

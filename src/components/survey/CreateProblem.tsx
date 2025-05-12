@@ -11,12 +11,12 @@ import {
 } from '@chakra-ui/react'
 import { FaTrash } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
-import type { Problem } from '@/types/survey'
+import type { CreateProblemDto } from '@/types/survey'
 import { ProblemType } from '@/types/survey'
 
 interface CreateProblemProps {
-  problem: Problem
-  onUpdate: (problem: Problem) => void
+  problem: CreateProblemDto
+  onUpdate: (problem: CreateProblemDto) => void
   onDelete: () => void
 }
 
