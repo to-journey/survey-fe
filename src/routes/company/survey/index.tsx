@@ -121,7 +121,7 @@ function RouteComponent() {
                       size="sm"
                       onClick={() =>
                         navigate({
-                          to: '/user/survey/$id',
+                          to: '/company/survey/$id',
                           params: {
                             id: row.original.id!,
                           },
