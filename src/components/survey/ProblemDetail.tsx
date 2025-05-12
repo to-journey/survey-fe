@@ -38,34 +38,30 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
       {problem.type === ProblemType.CHECKBOX && (
         <VStack gap={2}>
           {problem.options.map((option) => (
-            <HStack key={option}>
-              {problem.type === ProblemType.CHECKBOX && (
-                <Checkbox.Root>
-                  <Checkbox.HiddenInput />
-                  <Checkbox.Control />
-                  <Checkbox.Label>{option}</Checkbox.Label>
-                </Checkbox.Root>
-              )}
-            </HStack>
+            <Checkbox.Root>
+              <HStack key={option}>
+                <Checkbox.HiddenInput />
+                <Checkbox.Control />
+                <Checkbox.Label>{option}</Checkbox.Label>
+              </HStack>
+            </Checkbox.Root>
           ))}
         </VStack>
       )}
       {problem.type === ProblemType.RADIO && (
-        <VStack gap={2}>
-          {problem.options.map((option) => (
-            <HStack key={option}>
-              {problem.type === ProblemType.RADIO && (
-                <RadioGroup.Root>
-                  <RadioGroup.Item value={option}>
-                    <RadioGroup.ItemHiddenInput />
-                    <RadioGroup.ItemIndicator />
-                    <RadioGroup.ItemText>{option}</RadioGroup.ItemText>
-                  </RadioGroup.Item>
-                </RadioGroup.Root>
-              )}
-            </HStack>
-          ))}
-        </VStack>
+        <RadioGroup.Root>
+          <VStack gap={2}>
+            {problem.options.map((option) => (
+              <HStack key={option}>
+                <RadioGroup.Item value={option}>
+                  <RadioGroup.ItemHiddenInput />
+                  <RadioGroup.ItemIndicator />
+                  <RadioGroup.ItemText>{option}</RadioGroup.ItemText>
+                </RadioGroup.Item>
+              </HStack>
+            ))}
+          </VStack>
+        </RadioGroup.Root>
       )}
       {problem.type === ProblemType.DROPDOWN && (
         <Select.Root collection={options} width="320px">
