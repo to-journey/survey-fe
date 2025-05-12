@@ -1,4 +1,4 @@
-import type { CreateSurveyDto, Survey } from '@/types/survey'
+import type { CreateSurveyDto, ProblemAnswerDto, Survey } from '@/types/survey'
 import axios from '@/lib/axios'
 
 export const createSurvey = async (survey: CreateSurveyDto) => {
@@ -23,5 +23,10 @@ export const updateSurvey = async (survey: Survey) => {
 
 export const deleteSurvey = async (id: string) => {
   const response = await axios.delete(`/survey/${id}`)
+  return response.data
+}
+
+export const submitProblem = async (id: string, problemAnswer: ProblemAnswerDto) => {
+  const response = await axios.post(`/survey/${id}/problem/${problemAnswer.id}/submit`, { answer: problemAnswer.answer })
   return response.data
 }

@@ -1,4 +1,5 @@
 import {
+  Button,
   Checkbox,
   HStack,
   Input,
@@ -10,18 +11,32 @@ import {
   VStack,
   createListCollection,
 } from '@chakra-ui/react'
+import { useParams } from '@tanstack/react-router'
+import { useState } from 'react'
 import type { FC } from 'react'
 import type { Problem } from '@/types/survey'
 import { ProblemType } from '@/types/survey'
+import useSurvey from '@/hooks/useSurvey'
 
 interface Props {
   problem: Problem
 }
 
 const ProblemDetail: FC<Props> = ({ problem }) => {
+  const { id } = useParams({ from: '/user/survey/$id' })
+  const { submitProblemMutate, isSubmitting } = useSurvey(id)
+  const [answer, setAnswer] = useState<string>('')
+
   const options = createListCollection({
     items: problem.options,
   })
+
+  const handleSubmit = () => {
+    submitProblemMutate({
+      id: problem.id,
+      answer
+    })
+  }
 
   return (
     <VStack align="start" gap={4}>
@@ -33,13 +48,36 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
         <Text>問題:</Text>
         <Text>{problem.description}</Text>
       </HStack>
-      {problem.type === ProblemType.SINGLE && <Input w="320px" />}
-      {problem.type === ProblemType.MULTIPLE && <Textarea w="320px" />}
+      {problem.type === ProblemType.SINGLE && (
+        <Input
+          w="320px"
+          value={answer}
+          onChange={(e) => setAnswer(e.target.value)}
+        />
+      )}
+      {problem.type === ProblemType.MULTIPLE && (
+        <Textarea
+          w="320px"
+          value={answer}
+          onChange={(e) => setAnswer(e.target.value)}
+        />
+      )}
       {problem.type === ProblemType.CHECKBOX && (
         <VStack gap={2}>
           {problem.options.map((option) => (
-            <Checkbox.Root>
-              <HStack key={option}>
+            <Checkbox.Root
+              key={option}
+              checked={answer.split(',').includes(option)}
+              onCheckedChange={(e) => {
+                const checked = answer.split(',')
+                setAnswer(
+                  e.checked
+                    ? [...checked, option].join(',')
+                    : checked.filter((o: string) => o !== option).join(','),
+                )
+              }}
+            >
+              <HStack>
                 <Checkbox.HiddenInput />
                 <Checkbox.Control />
                 <Checkbox.Label>{option}</Checkbox.Label>
@@ -49,7 +87,10 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
         </VStack>
       )}
       {problem.type === ProblemType.RADIO && (
-        <RadioGroup.Root>
+        <RadioGroup.Root
+          value={answer}
+          onValueChange={(e) => e.value && setAnswer(e.value)}
+        >
           <VStack gap={2}>
             {problem.options.map((option) => (
               <HStack key={option}>
@@ -64,7 +105,12 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
         </RadioGroup.Root>
       )}
       {problem.type === ProblemType.DROPDOWN && (
-        <Select.Root collection={options} width="320px">
+        <Select.Root
+          collection={options}
+          width="320px"
+          value={[answer]}
+          onValueChange={(e) => setAnswer(e.value[0])}
+        >
           <Select.HiddenSelect />
           <Select.Control>
             <Select.Trigger>
@@ -88,6 +134,9 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
           </Portal>
         </Select.Root>
       )}
+      <Button onClick={handleSubmit} loading={isSubmitting}>
+        回答する
+      </Button>
     </VStack>
   )
 }
