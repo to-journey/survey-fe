@@ -109,7 +109,7 @@ function RouteComponent() {
                       title="削除"
                       description="本当に削除しますか？"
                       onConfirm={() => {
-                        deleteSurveyMutate(row.original.id!)
+                        deleteSurveyMutate(row.original.id)
                       }}
                     >
                       <Button variant="ghost" size="sm">
@@ -123,7 +123,7 @@ function RouteComponent() {
                         navigate({
                           to: '/company/survey/$id',
                           params: {
-                            id: row.original.id!,
+                            id: row.original.id,
                           },
                         })
                       }

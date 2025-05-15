@@ -16,6 +16,7 @@ import { Route as RegisterImport } from './routes/register'
 import { Route as LoginImport } from './routes/login'
 import { Route as CompanyImport } from './routes/company'
 import { Route as IndexImport } from './routes/index'
+import { Route as CompanySettingImport } from './routes/company/setting'
 import { Route as CompanyLoginFormImport } from './routes/company/login-form'
 import { Route as CompanyAiAnalysisImport } from './routes/company/ai-analysis'
 import { Route as UserSurveyIndexImport } from './routes/user/survey/index'
@@ -23,11 +24,12 @@ import { Route as UserShopIndexImport } from './routes/user/shop/index'
 import { Route as CompanySurveyIndexImport } from './routes/company/survey/index'
 import { Route as CompanyCustomerIndexImport } from './routes/company/customer/index'
 import { Route as UserSurveyIdImport } from './routes/user/survey/$id'
-import { Route as UserShopIdImport } from './routes/user/shop/$id'
 import { Route as CompanySurveyCreateImport } from './routes/company/survey/create'
 import { Route as CompanySurveyIdImport } from './routes/company/survey/$id'
 import { Route as CompanyCustomerCreateImport } from './routes/company/customer/create'
 import { Route as CompanyCustomerIdImport } from './routes/company/customer/$id'
+import { Route as UserShopIdIndexImport } from './routes/user/shop/$id/index'
+import { Route as UserShopIdUserUserIdImport } from './routes/user/shop/$id/user.$userId'
 
 // Create/Update Routes
 
@@ -59,6 +61,12 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const CompanySettingRoute = CompanySettingImport.update({
+  id: '/setting',
+  path: '/setting',
+  getParentRoute: () => CompanyRoute,
 } as any)
 
 const CompanyLoginFormRoute = CompanyLoginFormImport.update({
@@ -103,12 +111,6 @@ const UserSurveyIdRoute = UserSurveyIdImport.update({
   getParentRoute: () => UserRoute,
 } as any)
 
-const UserShopIdRoute = UserShopIdImport.update({
-  id: '/shop/$id',
-  path: '/shop/$id',
-  getParentRoute: () => UserRoute,
-} as any)
-
 const CompanySurveyCreateRoute = CompanySurveyCreateImport.update({
   id: '/survey/create',
   path: '/survey/create',
@@ -131,6 +133,18 @@ const CompanyCustomerIdRoute = CompanyCustomerIdImport.update({
   id: '/customer/$id',
   path: '/customer/$id',
   getParentRoute: () => CompanyRoute,
+} as any)
+
+const UserShopIdIndexRoute = UserShopIdIndexImport.update({
+  id: '/shop/$id/',
+  path: '/shop/$id/',
+  getParentRoute: () => UserRoute,
+} as any)
+
+const UserShopIdUserUserIdRoute = UserShopIdUserUserIdImport.update({
+  id: '/shop/$id/user/$userId',
+  path: '/shop/$id/user/$userId',
+  getParentRoute: () => UserRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -186,6 +200,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompanyLoginFormImport
       parentRoute: typeof CompanyImport
     }
+    '/company/setting': {
+      id: '/company/setting'
+      path: '/setting'
+      fullPath: '/company/setting'
+      preLoaderRoute: typeof CompanySettingImport
+      parentRoute: typeof CompanyImport
+    }
     '/company/customer/$id': {
       id: '/company/customer/$id'
       path: '/customer/$id'
@@ -213,13 +234,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/company/survey/create'
       preLoaderRoute: typeof CompanySurveyCreateImport
       parentRoute: typeof CompanyImport
-    }
-    '/user/shop/$id': {
-      id: '/user/shop/$id'
-      path: '/shop/$id'
-      fullPath: '/user/shop/$id'
-      preLoaderRoute: typeof UserShopIdImport
-      parentRoute: typeof UserImport
     }
     '/user/survey/$id': {
       id: '/user/survey/$id'
@@ -256,6 +270,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserSurveyIndexImport
       parentRoute: typeof UserImport
     }
+    '/user/shop/$id/': {
+      id: '/user/shop/$id/'
+      path: '/shop/$id'
+      fullPath: '/user/shop/$id'
+      preLoaderRoute: typeof UserShopIdIndexImport
+      parentRoute: typeof UserImport
+    }
+    '/user/shop/$id/user/$userId': {
+      id: '/user/shop/$id/user/$userId'
+      path: '/shop/$id/user/$userId'
+      fullPath: '/user/shop/$id/user/$userId'
+      preLoaderRoute: typeof UserShopIdUserUserIdImport
+      parentRoute: typeof UserImport
+    }
   }
 }
 
@@ -264,6 +292,7 @@ declare module '@tanstack/react-router' {
 interface CompanyRouteChildren {
   CompanyAiAnalysisRoute: typeof CompanyAiAnalysisRoute
   CompanyLoginFormRoute: typeof CompanyLoginFormRoute
+  CompanySettingRoute: typeof CompanySettingRoute
   CompanyCustomerIdRoute: typeof CompanyCustomerIdRoute
   CompanyCustomerCreateRoute: typeof CompanyCustomerCreateRoute
   CompanySurveyIdRoute: typeof CompanySurveyIdRoute
@@ -275,6 +304,7 @@ interface CompanyRouteChildren {
 const CompanyRouteChildren: CompanyRouteChildren = {
   CompanyAiAnalysisRoute: CompanyAiAnalysisRoute,
   CompanyLoginFormRoute: CompanyLoginFormRoute,
+  CompanySettingRoute: CompanySettingRoute,
   CompanyCustomerIdRoute: CompanyCustomerIdRoute,
   CompanyCustomerCreateRoute: CompanyCustomerCreateRoute,
   CompanySurveyIdRoute: CompanySurveyIdRoute,
@@ -287,17 +317,19 @@ const CompanyRouteWithChildren =
   CompanyRoute._addFileChildren(CompanyRouteChildren)
 
 interface UserRouteChildren {
-  UserShopIdRoute: typeof UserShopIdRoute
   UserSurveyIdRoute: typeof UserSurveyIdRoute
   UserShopIndexRoute: typeof UserShopIndexRoute
   UserSurveyIndexRoute: typeof UserSurveyIndexRoute
+  UserShopIdIndexRoute: typeof UserShopIdIndexRoute
+  UserShopIdUserUserIdRoute: typeof UserShopIdUserUserIdRoute
 }
 
 const UserRouteChildren: UserRouteChildren = {
-  UserShopIdRoute: UserShopIdRoute,
   UserSurveyIdRoute: UserSurveyIdRoute,
   UserShopIndexRoute: UserShopIndexRoute,
   UserSurveyIndexRoute: UserSurveyIndexRoute,
+  UserShopIdIndexRoute: UserShopIdIndexRoute,
+  UserShopIdUserUserIdRoute: UserShopIdUserUserIdRoute,
 }
 
 const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)
@@ -310,16 +342,18 @@ export interface FileRoutesByFullPath {
   '/user': typeof UserRouteWithChildren
   '/company/ai-analysis': typeof CompanyAiAnalysisRoute
   '/company/login-form': typeof CompanyLoginFormRoute
+  '/company/setting': typeof CompanySettingRoute
   '/company/customer/$id': typeof CompanyCustomerIdRoute
   '/company/customer/create': typeof CompanyCustomerCreateRoute
   '/company/survey/$id': typeof CompanySurveyIdRoute
   '/company/survey/create': typeof CompanySurveyCreateRoute
-  '/user/shop/$id': typeof UserShopIdRoute
   '/user/survey/$id': typeof UserSurveyIdRoute
   '/company/customer': typeof CompanyCustomerIndexRoute
   '/company/survey': typeof CompanySurveyIndexRoute
   '/user/shop': typeof UserShopIndexRoute
   '/user/survey': typeof UserSurveyIndexRoute
+  '/user/shop/$id': typeof UserShopIdIndexRoute
+  '/user/shop/$id/user/$userId': typeof UserShopIdUserUserIdRoute
 }
 
 export interface FileRoutesByTo {
@@ -330,16 +364,18 @@ export interface FileRoutesByTo {
   '/user': typeof UserRouteWithChildren
   '/company/ai-analysis': typeof CompanyAiAnalysisRoute
   '/company/login-form': typeof CompanyLoginFormRoute
+  '/company/setting': typeof CompanySettingRoute
   '/company/customer/$id': typeof CompanyCustomerIdRoute
   '/company/customer/create': typeof CompanyCustomerCreateRoute
   '/company/survey/$id': typeof CompanySurveyIdRoute
   '/company/survey/create': typeof CompanySurveyCreateRoute
-  '/user/shop/$id': typeof UserShopIdRoute
   '/user/survey/$id': typeof UserSurveyIdRoute
   '/company/customer': typeof CompanyCustomerIndexRoute
   '/company/survey': typeof CompanySurveyIndexRoute
   '/user/shop': typeof UserShopIndexRoute
   '/user/survey': typeof UserSurveyIndexRoute
+  '/user/shop/$id': typeof UserShopIdIndexRoute
+  '/user/shop/$id/user/$userId': typeof UserShopIdUserUserIdRoute
 }
 
 export interface FileRoutesById {
@@ -351,16 +387,18 @@ export interface FileRoutesById {
   '/user': typeof UserRouteWithChildren
   '/company/ai-analysis': typeof CompanyAiAnalysisRoute
   '/company/login-form': typeof CompanyLoginFormRoute
+  '/company/setting': typeof CompanySettingRoute
   '/company/customer/$id': typeof CompanyCustomerIdRoute
   '/company/customer/create': typeof CompanyCustomerCreateRoute
   '/company/survey/$id': typeof CompanySurveyIdRoute
   '/company/survey/create': typeof CompanySurveyCreateRoute
-  '/user/shop/$id': typeof UserShopIdRoute
   '/user/survey/$id': typeof UserSurveyIdRoute
   '/company/customer/': typeof CompanyCustomerIndexRoute
   '/company/survey/': typeof CompanySurveyIndexRoute
   '/user/shop/': typeof UserShopIndexRoute
   '/user/survey/': typeof UserSurveyIndexRoute
+  '/user/shop/$id/': typeof UserShopIdIndexRoute
+  '/user/shop/$id/user/$userId': typeof UserShopIdUserUserIdRoute
 }
 
 export interface FileRouteTypes {
@@ -373,16 +411,18 @@ export interface FileRouteTypes {
     | '/user'
     | '/company/ai-analysis'
     | '/company/login-form'
+    | '/company/setting'
     | '/company/customer/$id'
     | '/company/customer/create'
     | '/company/survey/$id'
     | '/company/survey/create'
-    | '/user/shop/$id'
     | '/user/survey/$id'
     | '/company/customer'
     | '/company/survey'
     | '/user/shop'
     | '/user/survey'
+    | '/user/shop/$id'
+    | '/user/shop/$id/user/$userId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -392,16 +432,18 @@ export interface FileRouteTypes {
     | '/user'
     | '/company/ai-analysis'
     | '/company/login-form'
+    | '/company/setting'
     | '/company/customer/$id'
     | '/company/customer/create'
     | '/company/survey/$id'
     | '/company/survey/create'
-    | '/user/shop/$id'
     | '/user/survey/$id'
     | '/company/customer'
     | '/company/survey'
     | '/user/shop'
     | '/user/survey'
+    | '/user/shop/$id'
+    | '/user/shop/$id/user/$userId'
   id:
     | '__root__'
     | '/'
@@ -411,16 +453,18 @@ export interface FileRouteTypes {
     | '/user'
     | '/company/ai-analysis'
     | '/company/login-form'
+    | '/company/setting'
     | '/company/customer/$id'
     | '/company/customer/create'
     | '/company/survey/$id'
     | '/company/survey/create'
-    | '/user/shop/$id'
     | '/user/survey/$id'
     | '/company/customer/'
     | '/company/survey/'
     | '/user/shop/'
     | '/user/survey/'
+    | '/user/shop/$id/'
+    | '/user/shop/$id/user/$userId'
   fileRoutesById: FileRoutesById
 }
 
@@ -465,6 +509,7 @@ export const routeTree = rootRoute
       "children": [
         "/company/ai-analysis",
         "/company/login-form",
+        "/company/setting",
         "/company/customer/$id",
         "/company/customer/create",
         "/company/survey/$id",
@@ -482,10 +527,11 @@ export const routeTree = rootRoute
     "/user": {
       "filePath": "user.tsx",
       "children": [
-        "/user/shop/$id",
         "/user/survey/$id",
         "/user/shop/",
-        "/user/survey/"
+        "/user/survey/",
+        "/user/shop/$id/",
+        "/user/shop/$id/user/$userId"
       ]
     },
     "/company/ai-analysis": {
@@ -494,6 +540,10 @@ export const routeTree = rootRoute
     },
     "/company/login-form": {
       "filePath": "company/login-form.tsx",
+      "parent": "/company"
+    },
+    "/company/setting": {
+      "filePath": "company/setting.tsx",
       "parent": "/company"
     },
     "/company/customer/$id": {
@@ -511,10 +561,6 @@ export const routeTree = rootRoute
     "/company/survey/create": {
       "filePath": "company/survey/create.tsx",
       "parent": "/company"
-    },
-    "/user/shop/$id": {
-      "filePath": "user/shop/$id.tsx",
-      "parent": "/user"
     },
     "/user/survey/$id": {
       "filePath": "user/survey/$id.tsx",
@@ -534,6 +580,14 @@ export const routeTree = rootRoute
     },
     "/user/survey/": {
       "filePath": "user/survey/index.tsx",
+      "parent": "/user"
+    },
+    "/user/shop/$id/": {
+      "filePath": "user/shop/$id/index.tsx",
+      "parent": "/user"
+    },
+    "/user/shop/$id/user/$userId": {
+      "filePath": "user/shop/$id/user.$userId.tsx",
       "parent": "/user"
     }
   }

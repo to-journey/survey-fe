@@ -13,6 +13,8 @@ export type User = {
     key: string
     value: string
   }>
+  point: number
+  lastLogin: string
 }
 
 export type CreateUser = Omit<User, 'id' | 'role'>

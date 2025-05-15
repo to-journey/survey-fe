@@ -12,7 +12,7 @@ import {
 interface Props {
   children: React.ReactNode
   title: string
-  description: string
+  description: React.ReactNode
   onConfirm: () => void
 }
 
