@@ -17,7 +17,7 @@ export interface IApp {
   setToken?: (token: string) => void
   user?: User | null
   setUser?: (user: User) => void
-  login?: (loginData: LoginForm) => Promise<void>
+  login?: (loginData: LoginForm & { token: string | null }) => Promise<void>
   register?: (registerData: RegisterForm) => Promise<void>
   logout?: () => void
   isLoading?: boolean
@@ -65,7 +65,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
     }
   }, [token])
 
-  const login = async (loginData: LoginForm) => {
+  const login = async (loginData: LoginForm & { token: string | null }) => {
     setIsLogin(true)
     try {
       const response = await axios.post<LoginResponse>('/auth/login', loginData)

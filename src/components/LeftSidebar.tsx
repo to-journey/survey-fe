@@ -66,6 +66,7 @@ const Menu = () => {
         ) : (
           <Stack gap={2}>
             <MenuItem to="/user/survey">アンケートページ</MenuItem>
+            <MenuItem to="/user/shop">店舗</MenuItem>
           </Stack>
         )}
       </VStack>
