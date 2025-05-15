@@ -11,7 +11,6 @@ import {
   VStack,
   createListCollection,
 } from '@chakra-ui/react'
-import { useParams } from '@tanstack/react-router'
 import { useState } from 'react'
 import type { FC } from 'react'
 import type { Problem } from '@/types/survey'
@@ -19,13 +18,15 @@ import { ProblemType } from '@/types/survey'
 import useSurvey from '@/hooks/useSurvey'
 
 interface Props {
+  id: string
   problem: Problem
+  defaultAnswer?: string
+  readonly?: boolean
 }
 
-const ProblemDetail: FC<Props> = ({ problem }) => {
-  const { id } = useParams({ from: '/user/survey/$id' })
+const ProblemDetail: FC<Props> = ({ id, problem, defaultAnswer, readonly }) => {
   const { submitProblemMutate, isSubmitting } = useSurvey(id)
-  const [answer, setAnswer] = useState<string>('')
+  const [answer, setAnswer] = useState<string>(defaultAnswer ?? '')
 
   const options = createListCollection({
     items: problem.options,
@@ -53,6 +54,7 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
           w="320px"
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
+          disabled={readonly}
         />
       )}
       {problem.type === ProblemType.MULTIPLE && (
@@ -60,6 +62,7 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
           w="320px"
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
+          disabled={readonly}
         />
       )}
       {problem.type === ProblemType.CHECKBOX && (
@@ -76,6 +79,7 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
                     : checked.filter((o: string) => o !== option).join(','),
                 )
               }}
+              disabled={readonly}
             >
               <HStack>
                 <Checkbox.HiddenInput />
@@ -90,6 +94,7 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
         <RadioGroup.Root
           value={answer}
           onValueChange={(e) => e.value && setAnswer(e.value)}
+          disabled={readonly}
         >
           <VStack gap={2}>
             {problem.options.map((option) => (
@@ -110,6 +115,7 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
           width="320px"
           value={[answer]}
           onValueChange={(e) => setAnswer(e.value[0])}
+          disabled={readonly}
         >
           <Select.HiddenSelect />
           <Select.Control>
@@ -134,9 +140,11 @@ const ProblemDetail: FC<Props> = ({ problem }) => {
           </Portal>
         </Select.Root>
       )}
-      <Button onClick={handleSubmit} loading={isSubmitting}>
-        回答する
-      </Button>
+      {!readonly && (
+        <Button onClick={handleSubmit} loading={isSubmitting}>
+          回答する
+        </Button>
+      )}
     </VStack>
   )
 }

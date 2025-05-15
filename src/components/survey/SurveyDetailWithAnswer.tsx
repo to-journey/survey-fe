@@ -1,13 +1,14 @@
 import { HStack, Text, VStack } from '@chakra-ui/react'
 import ProblemDetail from './ProblemDetail'
 import type { FC } from 'react'
-import type { Survey } from '@/types/survey'
+import type { Answer, Survey } from '@/types/survey'
 
 interface Props {
   survey: Survey
+  answers: Array<Answer>
 }
 
-const SurveyDetail: FC<Props> = ({ survey }) => {
+const SurveyDetailWithAnswer: FC<Props> = ({ survey, answers }) => {
   return (
     <VStack align="start">
       <HStack>
@@ -20,13 +21,17 @@ const SurveyDetail: FC<Props> = ({ survey }) => {
         <Text>アンケート説明:</Text>
         <Text>{survey.description}</Text>
       </HStack>
-      {survey.problems
-        .sort((a, b) => a.number - b.number)
-        .map((problem) => (
-          <ProblemDetail id={survey.id} key={problem.id} problem={problem} />
-        ))}
+      {answers.map(({ problem, answer }) => (
+        <ProblemDetail
+          id={survey.id}
+          key={problem.id}
+          problem={problem}
+          defaultAnswer={answer}
+          readonly
+        />
+      ))}
     </VStack>
   )
 }
 
-export default SurveyDetail
+export default SurveyDetailWithAnswer
