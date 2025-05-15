@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Container, Flex, Heading, Input, Text, VStack } from '@chakra-ui/react'
@@ -88,6 +88,7 @@ function RouteComponent() {
             )
           })}
           <Button type="submit" loading={isLoading}>新規登録</Button>
+          <Link to="/login">ログイン</Link>
         </VStack>
       </form>
     </Container>

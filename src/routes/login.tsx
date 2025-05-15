@@ -8,7 +8,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { Link, createFileRoute, useLocation, useNavigate } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { LoginForm } from '@/types/auth'
@@ -22,13 +22,18 @@ export const Route = createFileRoute('/login')({
 
 function RouteComponent() {
   const navigate = useNavigate()
+  const { search } = useLocation()
+  const token = new URLSearchParams(search).get('token')
   const { login, user, isLoading } = useApp()
   const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
   })
 
   const onSubmit = (data: LoginForm) => {
-    login?.(data)
+    login?.({
+      ...data,
+      token,
+    })
   }
 
   useEffect(() => {
@@ -67,6 +72,7 @@ function RouteComponent() {
             {errors.password && <Text color="red">{errors.password.message}</Text>}
           </Flex>
           <Button type="submit" loading={isLoading}>ログイン</Button>
+          <Link to="/register">新規登録</Link>
         </VStack>
       </form>
     </Container>
