@@ -36,3 +36,8 @@ export type ProblemAnswerDto = {
   id: string
   answer: string
 }
+
+export type Answer = {
+  answer: string
+  problem: Problem,
+}
