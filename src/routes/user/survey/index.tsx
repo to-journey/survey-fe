@@ -1,6 +1,5 @@
 import {
   Button,
-  ButtonGroup,
   Container,
   Flex,
   Heading,
@@ -17,11 +16,10 @@ import {
   getFilteredRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { FaEye, FaTrash } from 'react-icons/fa'
+import { FaEye } from 'react-icons/fa'
 import { useState } from 'react'
 import type { Survey } from '@/types/survey'
 import useSurveys from '@/hooks/useSurveys'
-import ConfirmDialog from '@/components/ConfirmDialog'
 
 export const Route = createFileRoute('/user/survey/')({
   component: RouteComponent,
@@ -99,33 +97,20 @@ function RouteComponent() {
                   </Table.Cell>
                 ))}
                 <Table.Cell>
-                  <ButtonGroup>
-                    <ConfirmDialog
-                      title="削除"
-                      description="本当に削除しますか？"
-                      onConfirm={() => {
-                        deleteSurveyMutate(row.original.id!)
-                      }}
-                    >
-                      <Button variant="ghost" size="sm">
-                        <FaTrash />
-                      </Button>
-                    </ConfirmDialog>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() =>
-                        navigate({
-                          to: '/user/survey/$id',
-                          params: {
-                            id: row.original.id!,
-                          },
-                        })
-                      }
-                    >
-                      <FaEye />
-                    </Button>
-                  </ButtonGroup>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() =>
+                      navigate({
+                        to: '/user/survey/$id',
+                        params: {
+                          id: row.original.id,
+                        },
+                      })
+                    }
+                  >
+                    <FaEye />
+                  </Button>
                 </Table.Cell>
               </Table.Row>
             ))}

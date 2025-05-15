@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   CloseButton,
   Container,
   Flex,
@@ -113,19 +112,17 @@ function RouteComponent() {
                   </Table.Cell>
                 ))}
                 <Table.Cell>
-                  <ButtonGroup>
-                    <ConfirmDialog
-                      title="削除"
-                      description="本当に削除しますか？"
-                      onConfirm={() => {
-                        deleteUserAttributionMutate(row.original.id!)
-                      }}
-                    >
-                      <Button variant="ghost" size="sm">
-                        <FaTrash />
-                      </Button>
-                    </ConfirmDialog>
-                  </ButtonGroup>
+                  <ConfirmDialog
+                    title="削除"
+                    description="本当に削除しますか？"
+                    onConfirm={() => {
+                      deleteUserAttributionMutate(row.original.id!)
+                    }}
+                  >
+                    <Button variant="ghost" size="sm">
+                      <FaTrash />
+                    </Button>
+                  </ConfirmDialog>
                 </Table.Cell>
               </Table.Row>
             ))}

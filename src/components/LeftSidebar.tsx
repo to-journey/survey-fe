@@ -62,6 +62,7 @@ const Menu = () => {
             <MenuItem to="/company/ai-analysis">AI分析</MenuItem>
             <MenuItem to="/company/survey">アンケートページ</MenuItem>
             <MenuItem to="/company/login-form">ログインフォームの編集</MenuItem>
+            <MenuItem to="/company/setting">設定</MenuItem>
           </Stack>
         ) : (
           <Stack gap={2}>
@@ -70,14 +71,32 @@ const Menu = () => {
           </Stack>
         )}
       </VStack>
-      <Button
-        onClick={() => {
-          logout?.()
-          navigate({ to: '/login' })
-        }}
-      >
-        ログアウト
-      </Button>
+      <VStack align="end">
+        {user && (
+          <>
+            <Text fontSize="sm" color="gray.500">
+              {user.role == Role.ADMIN ? '管理者' : 'ユーザー'}
+            </Text>
+            {user.role == Role.USER && (
+              <Text fontSize="sm" color="gray.500">
+                {user.point}ポイント
+              </Text>
+            )}
+            <Text fontSize="sm" color="gray.500">
+              最後のログイン:{' '}
+              {new Date(user.lastLogin).toLocaleDateString('ja-JP')}
+            </Text>
+          </>
+        )}
+        <Button
+          onClick={() => {
+            logout?.()
+            navigate({ to: '/login' })
+          }}
+        >
+          ログアウト
+        </Button>
+      </VStack>
     </Flex>
   )
 }
