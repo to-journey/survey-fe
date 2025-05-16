@@ -28,7 +28,7 @@ export const Route = createFileRoute('/user/survey/')({
 function RouteComponent() {
   const navigate = useNavigate()
   const [globalFilter, setGlobalFilter] = useState('')
-  const { surveys, deleteSurveyMutate } = useSurveys()
+  const { surveys } = useSurveys()
 
   const columnHelper = createColumnHelper<Survey>()
 
