@@ -17,4 +17,12 @@ export type User = {
   lastLogin: string
 }
 
-export type CreateUser = Omit<User, 'id' | 'role'>
+export type CreateUser = {
+  lastName: string
+  firstName: string
+  email: string
+  attributions: Array<{
+    key: string
+    value: string
+  }>
+}
