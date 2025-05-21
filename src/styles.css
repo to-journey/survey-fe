@@ -1,15 +1,152 @@
 @import 'tailwindcss';
 
+:root {
+  --primary: rgb(79, 70, 229);
+  --primary-hover: rgb(67, 56, 202);
+  --primary-light: rgb(224, 231, 255);
+  --primary-dark: rgb(49, 46, 129);
+  --gray-50: rgb(249, 250, 251);
+  --gray-100: rgb(243, 244, 246);
+  --gray-200: rgb(229, 231, 235);
+  --gray-300: rgb(209, 213, 219);
+  --gray-400: rgb(156, 163, 175);
+  --gray-500: rgb(107, 114, 128);
+  --gray-600: rgb(75, 85, 99);
+  --gray-700: rgb(55, 65, 81);
+  --gray-800: rgb(31, 41, 55);
+  --gray-900: rgb(17, 24, 39);
+}
+
 body {
   @apply m-0;
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--gray-50);
+  color: var(--gray-900);
 }
 
 code {
-  font-family:
-    source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Button Styles */
+button {
+  @apply rounded-lg px-4 py-2 font-medium transition-colors duration-200;
+}
+
+button:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+button[data-variant='primary'] {
+  @apply bg-indigo-600 text-white hover:bg-indigo-700;
+}
+
+button[data-variant='secondary'] {
+  @apply bg-white text-gray-700 border border-gray-300 hover:bg-gray-50;
+}
+
+button[data-variant='ghost'] {
+  @apply bg-transparent text-gray-700 hover:bg-gray-100;
+}
+
+/* Input Styles */
+input, textarea, select {
+  @apply rounded-lg border border-gray-300 px-4 py-2 w-full transition-colors duration-200;
+  @apply focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none;
+}
+
+input:disabled, textarea:disabled, select:disabled {
+  @apply bg-gray-100 cursor-not-allowed;
+}
+
+/* Table Styles */
+table {
+  @apply w-full border-collapse;
+}
+
+th {
+  @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50 border-b border-gray-200;
+}
+
+td {
+  @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-b border-gray-200;
+}
+
+tr:hover {
+  @apply bg-gray-50;
+}
+
+/* Card Styles */
+.card {
+  @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+}
+
+/* Dialog Styles */
+.dialog-overlay {
+  @apply fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm;
+}
+
+.dialog-content {
+  @apply fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+  @apply bg-white rounded-lg shadow-xl p-6 max-w-md w-full mx-4;
+}
+
+/* Form Styles */
+.form-group {
+  @apply mb-4;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+.form-error {
+  @apply text-sm text-red-600 mt-1;
+}
+
+/* Navigation Styles */
+.nav-link {
+  @apply px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200;
+}
+
+.nav-link.active {
+  @apply bg-indigo-50 text-indigo-700 font-medium;
+}
+
+/* Toast Styles */
+.toast {
+  @apply fixed bottom-4 right-4 bg-white rounded-lg shadow-lg border border-gray-200 p-4;
+  @apply transform transition-all duration-300;
+}
+
+.toast-success {
+  @apply border-green-500 bg-green-50 text-green-700;
+}
+
+.toast-error {
+  @apply border-red-500 bg-red-50 text-red-700;
+}
+
+/* Animation Utilities */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 200ms ease-in;
 }
