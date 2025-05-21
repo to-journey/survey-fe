@@ -40,8 +40,5 @@ export default {
       },
     },
   },
-  plugins: [],
-  safelist: [
-    'bg-opacity-50'
-  ]
+  plugins: []
 }
