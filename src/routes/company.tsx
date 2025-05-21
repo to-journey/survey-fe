@@ -17,16 +17,6 @@ function RouteComponent() {
   const navigate = useNavigate()
   const { user, isLoading } = useApp()
 
-  useEffect(() => {
-    if (!isLoading) {
-      if (!user) {
-        navigate({ to: '/login' })
-      } else if (user.role !== Role.ADMIN) {
-        navigate({ to: '/user' })
-      }
-    }
-  }, [isLoading, user, navigate])
-
   return (
     <Box w="100vw" h="100vh" display="flex">
       <LeftSidebar />
