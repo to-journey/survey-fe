@@ -75,7 +75,7 @@ const Menu = () => {
           </Stack>
         )}
       </VStack>
-      <VStack align="stretch" spacing={4} bg="gray.50" p={4} rounded="lg">
+      <VStack align="stretch" gap={4} bg="gray.50" p={4} rounded="lg">
         {user && (
           <>
             <Box>
