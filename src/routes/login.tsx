@@ -56,7 +56,7 @@ function RouteComponent() {
         w="full"
         maxW="md"
       >
-        <VStack spacing={6}>
+        <VStack gap={6}>
           <Heading size="lg" color="indigo.600">
             ログイン
           </Heading>
