@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Container, Flex, Heading, Input, Text, VStack, Box } from '@chakra-ui/react'
+import { Button, Flex, Heading, Input, Text, VStack, Box } from '@chakra-ui/react'
 import { useState } from 'react'
 import type { RegisterForm } from '@/types/auth'
 import type { UserAttribution } from '@/types/user-attribution'
@@ -35,12 +35,12 @@ function RouteComponent() {
         w="full"
         maxW="md"
       >
-        <VStack spacing={6}>
+        <VStack gap={6}>
           <Heading size="lg" color="indigo.600">
             新規登録
           </Heading>
           <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
-            <VStack spacing={4} align="stretch">
+            <VStack gap={4} align="stretch">
               <Box>
                 <Text mb={2} fontSize="sm" fontWeight="medium" color="gray.700">
                   メールアドレス
@@ -145,7 +145,7 @@ function RouteComponent() {
                 colorScheme="indigo"
                 size="lg"
                 width="full"
-                isLoading={isLoading}
+                loading={isLoading}
                 loadingText="登録中..."
               >
                 新規登録

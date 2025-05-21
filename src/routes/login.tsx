@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import {
   Button,
-  Container,
   Flex,
   Heading,
   Input,
@@ -62,7 +61,7 @@ function RouteComponent() {
             ログイン
           </Heading>
           <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
-            <VStack spacing={4} align="stretch">
+            <VStack gap={4} align="stretch">
               <Box>
                 <Text mb={2} fontSize="sm" fontWeight="medium" color="gray.700">
                   メールアドレス
@@ -106,7 +105,7 @@ function RouteComponent() {
                 colorScheme="indigo"
                 size="lg"
                 width="full"
-                isLoading={isLoading}
+                loading={isLoading}
                 loadingText="ログイン中..."
               >
                 ログイン
